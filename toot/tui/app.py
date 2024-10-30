@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 from toot import api, config, __version__, settings
 from toot import App, User
 from toot.cli import get_default_visibility
-from toot.exceptions import ApiError
+from toot.exceptions import ApiError, ConsoleError
 from toot.utils.datetime import parse_datetime
 
 from .compose import StatusComposer
@@ -363,7 +363,7 @@ class TUI(urwid.Frame):
                 acct = f'@{self.user.username}@{self.user.instance}'
                 self.account = api.find_account(self.app, self.user, acct)
                 return api.following(self.app, self.user, self.account["id"])
-            except ApiError:
+            except ConsoleError:
                 # not supported by all Mastodon servers so fail silently if necessary
                 return []
 
