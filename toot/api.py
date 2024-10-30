@@ -420,6 +420,7 @@ def _get_next_url(headers) -> Optional[str]:
 
 def _timeline_generator(app, user, path, params=None):
     while path:
+        params = {}
         response = http.get(app, user, path, params)
         yield response.json()
         path = _get_next_path(response.headers)
